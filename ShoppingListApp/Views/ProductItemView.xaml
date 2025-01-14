@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ShoppingListApp.ViewModels"
+             xmlns:converters="clr-namespace:ShoppingListApp.Converters"
+             x:Class="ShoppingListApp.Views.ProductItemView">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:PurchasedToColorConverter x:Key="PurchasedToColorConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <StackLayout Orientation="Horizontal" Padding="10">
+        <Label Text="{Binding Name}" FontSize="Medium" VerticalOptions="Center" /> <!-- Wyświetlanie nazwy produktu -->
+        <Label Text="{Binding Unit}" FontSize="Small" VerticalOptions="Center" Margin="10,0" /> <!-- Wyświetlanie jednostki -->
+        <Entry Text="{Binding Quantity}" Keyboard="Numeric" WidthRequest="50" VerticalOptions="Center" /> <!-- Pole do edytowania ilości -->
+        <Button Text="+" Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.AddQuantityCommand}" CommandParameter="{Binding}" /> <!-- Przycisk zwiększający ilość -->
+        <Button Text="-" Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.SubtractQuantityCommand}" CommandParameter="{Binding}" /> <!-- Przycisk zmniejszający ilość -->
+        <BoxView Color="{Binding IsPurchased, Converter={StaticResource PurchasedToColorConverter}}" WidthRequest="10" HeightRequest="10" VerticalOptions="Center" /> <!-- Wizualne oznaczenie zakupu -->
+    </StackLayout>
+</ContentView>
